@@ -1,3 +1,5 @@
+# Defining neural networks in TensorFlow using both linear algebra and higher level Keras operations
+
 import tensorflow as tf
 import pandas as pd
 import numpy as np
