@@ -130,12 +130,20 @@ plt.show()
 print(model.summary())
 
 # Save weights
-for layer in model.layers:
-    weights = layer.get_weights()[0]
-    biases = layer.get_weights()[1]
-    np.savetxt('Output_Weights.txt', weights, delimiter=' ')
-    np.savetxt('Output_Biases.txt', biases, delimiter=' ')
-    print(weights)
+# for layer in model.layers:
+weights1 = model.layers[0].get_weights()[0]
+biases1 = model.layers[0].get_weights()[1]
+np.savetxt('Output_Weights1.txt', weights1, delimiter=' ')
+np.savetxt('Output_Biases1.txt', biases1, delimiter=' ')
+weights2 = model.layers[1].get_weights()[0]
+biases2 = model.layers[1].get_weights()[1]
+np.savetxt('Output_Weights2.txt', weights2, delimiter=' ')
+np.savetxt('Output_Biases2.txt', biases2, delimiter=' ')
+weights3 = model.layers[2].get_weights()[0]
+biases3 = model.layers[2].get_weights()[1]
+np.savetxt('Output_Weights3.txt', weights3, delimiter=' ')
+np.savetxt('Output_Biases3.txt', biases3, delimiter=' ')
+# print(weights)
 
 if os.path.isfile('Supervised ML model\weights.h5') is False:
     model.save_weights('Supervised ML model\weights.h5')
