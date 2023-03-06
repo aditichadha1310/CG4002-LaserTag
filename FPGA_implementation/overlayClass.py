@@ -41,5 +41,5 @@ class OL():
         #   1) Player ID
         #   2) Identified action (by neural network)
         output = [player_id, out_buffer[0]]
-        print(output)
+        print("Player " + output[0] + ": Action " + output[1])
         return output
