@@ -1,18 +1,18 @@
 # ONLY CAN RUN PYNQ LIB ON FPGA
-import pynq
-from pynq import Overlay
-import numpy as np
+# import pynq
+# from pynq import Overlay
+# import numpy as np
 
-overlay = Overlay("design_3.bit")
+# overlay = Overlay("design_3.bit")
 
-dma = overlay.axi_dma_0
+# dma = overlay.axi_dma_0
 
 
 class OL():
     def overlay(input):
-        print(input)
+        print("Input: " + input)
         output = input
-        print(output)
+        print("Output: " + output)
         # # allocate in and out buffer
         # in_buffer = pynq.allocate(shape=(24,), dtype=np.double)
 
