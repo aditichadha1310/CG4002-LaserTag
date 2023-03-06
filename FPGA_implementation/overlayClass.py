@@ -3,22 +3,21 @@ import pynq
 from pynq import Overlay
 import numpy as np
 
-overlay = Overlay("design_3.bit")
+overlay = Overlay("mlpdesign1_wrapper.bit")
 
 dma = overlay.axi_dma_0
 
 
 class OL():
     def overlay(input):
-        # Allocate in and out buffer
-
-        # In buffer of 6 floats
+        # Allocate input buffer of 6 floats
         in_buffer = pynq.allocate(shape=(6,), dtype=np.float32)
 
-        # Out buffer of 1 integer
+        # Allocate output buffer of 1 integer
         out_buffer = pynq.allocate(shape=(1,), dtype=np.int32)
 
-        # 1st number of the input is the Player ID (i.e. 1 or 2), 2nd to 7th numbers are to be fed into the neural network
+        # 1st number of the input is the Player ID (i.e. 1 or 2)
+        # 2nd to 7th numbers (total 6 numbers) are to be fed into the neural network
         for i, val in enumerate(input):
             if(i == 0):
                 player_id = val
