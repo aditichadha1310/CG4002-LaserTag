@@ -33,7 +33,7 @@ LABELS = ['right_walk',
 
 
 # data = pd.read_csv("Supervised ML model\WISDM_ar_v1.1_raw.txt", sep=",", )
-data = pd.read_csv("Supervised ML model\dataset2.csv")
+data = pd.read_csv("ML_model\dataset.csv")
 print(data.head())
 
 # Change pandas dataframe to np array
