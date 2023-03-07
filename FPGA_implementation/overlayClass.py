@@ -3,13 +3,12 @@ import pynq
 from pynq import Overlay
 import numpy as np
 
-overlay = Overlay("mlpdesign1_wrapper.bit")
-
-dma = overlay.axi_dma_0
-
-
 class OL():
     def overlay(input):
+        # Initialise overlay
+        overlay = Overlay("mlpdesign1_wrapper.bit")
+        dma = overlay.axi_dma_0
+
         # Allocate input buffer of 6 floats
         in_buffer = pynq.allocate(shape=(6,), dtype=np.float32)
 
