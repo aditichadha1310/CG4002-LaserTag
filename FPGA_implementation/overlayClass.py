@@ -9,6 +9,10 @@ class OL():
         overlay = Overlay("mlpdesign1_wrapper.bit")
         dma = overlay.axi_dma_0
 
+        # Insert start of move identification here
+        # - Take in the first 5 datapoints
+        # - If the first 5 shows a possible valid action, proceed to take in 50 datapoints to determine which of the 4 possible actions
+
         # Allocate input buffer of 6 floats
         in_buffer = pynq.allocate(shape=(6,), dtype=np.float32)
 
