@@ -3,11 +3,10 @@ import pynq
 from pynq import Overlay
 import numpy as np
 
-# Initialise overlay
-overlay = Overlay("amlpbd1_wrapper.bit")
-overlay.download()
-
 def confirm_action(input):
+    # Initialise overlay
+    overlay = Overlay("amlpbd1_wrapper.bit")
+    overlay.download()
     dma = overlay.axi_dma_0
 
     # Insert start of move identification here
