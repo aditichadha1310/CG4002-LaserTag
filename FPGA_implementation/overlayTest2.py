@@ -7,6 +7,7 @@ def confirm_action(input):
     # Initialise overlay
     overlay = Overlay("amlpbd1_wrapper.bit")
     # overlay.download()
+    overlay.is_loaded()
     dma = overlay.axi_dma_0
 
     # Insert start of move identification here
