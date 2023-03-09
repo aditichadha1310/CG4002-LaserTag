@@ -47,5 +47,5 @@ def confirm_action(input):
     print("Player " + output[0] + ": Action " + output[1])
     return output
  
-input = [0.7131,-0.9219,-0.4869,0.2231,-1.5774,-1.9895]
+input = [1, 0.7131,-0.9219,-0.4869,0.2231,-1.5774,-1.9895]
 confirm_action(input)
