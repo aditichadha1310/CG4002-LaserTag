@@ -4,7 +4,7 @@ from pynq import Overlay
 import numpy as np
 
 # Initialise overlay
-overlay = Overlay("mlpdesign1_wrapper.bit")
+overlay = Overlay("amlpbd1_wrapper.bit")
 overlay.download()
 
 def confirm_action(input):
