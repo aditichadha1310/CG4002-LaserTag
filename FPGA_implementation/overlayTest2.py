@@ -3,14 +3,17 @@ import pynq
 from pynq import Overlay
 import numpy as np
 
-def confirm_action(input, xoutput):
+# Load overlay
+def load_overlay():
     # Initialise overlay
     overlay = Overlay("amlpbd2.bit")
     # overlay.download()
     if (overlay.is_loaded()):
         print("Bitstream successfully loaded LESGO")
     dma = overlay.axi_dma_0
+    return dma
 
+def confirm_action(input, xoutput, dma):
     # Insert start of move identification here
     # - Take in the first 5 datapoints
     # - If the first 5 shows a possible valid action, proceed to take in 50 datapoints to determine which of the 4 possible actions
@@ -51,4 +54,5 @@ def confirm_action(input, xoutput):
 
 input = [1, -1.4491,0.5708,-0.337,-1.5568,-1.0423,-0.7411]
 xoutput = 3
-confirm_action(input, xoutput)
+dma = load_overlay()
+confirm_action(input, xoutput, dma)
