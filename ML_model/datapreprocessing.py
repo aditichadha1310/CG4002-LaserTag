@@ -25,4 +25,4 @@ data['lab'] = data['label']
 data = data.drop(columns='label')
 
 print(data.head())
-data.to_csv('datapreprocessed.csv', index=False)
+data.to_csv('datapreprocessed.csv')
