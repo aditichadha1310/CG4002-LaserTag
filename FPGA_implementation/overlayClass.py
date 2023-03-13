@@ -5,6 +5,7 @@ import numpy as np
 
 # Initialise overlay
 overlay = Overlay("mlpdesign1_wrapper.bit")
+overlay.download()
 
 def confirm_action(input):
     dma = overlay.axi_dma_0
