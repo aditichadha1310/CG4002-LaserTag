@@ -53,7 +53,7 @@ class OL():
         print("Predicted Action: " + str(output))
         print("Expected Action: " + str(xoutput))
 
-    input = [1, -1.4491,0.5708,-0.337,-1.5568,-1.0423,-0.7411]
-    xoutput = 3
-    dma = load_overlay()
-    confirm_action(input, xoutput, dma)
+input = [1, -1.4491,0.5708,-0.337,-1.5568,-1.0423,-0.7411]
+xoutput = 3
+dma = OL.load_overlay()
+OL.confirm_action(input, xoutput, dma)
