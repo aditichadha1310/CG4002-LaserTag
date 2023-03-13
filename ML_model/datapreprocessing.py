@@ -2,14 +2,14 @@ import pandas as pd
 import numpy as np
 
 # Read dataset for training and testing
-data = pd.read_csv("dataset2.csv")
+data = pd.read_csv("final_data.csv")
 
 print(data.head())
-data = data.drop(columns=['date','time','username','wrist','activity'])
-print(data.head())
+# data = data.drop(columns=['date', 'time', 'username', 'wrist', 'activity'])
+# print(data.head())
 
-acc_data = data[['acceleration_x','acceleration_y','acceleration_z']].values
-gyro_data = data[['gyro_x','gyro_y','gyro_z']].values
+acc_data = data[['acc_x', 'acc_y', 'acc_z']].values
+gyro_data = data[['gyro_x', 'gyro_y', 'gyro_z']].values
 
 data['acc_mean'] = np.mean(acc_data, axis=1)
 data['acc_std'] = np.std(acc_data, axis=1)
@@ -21,5 +21,8 @@ data['gyro_std'] = np.std(gyro_data, axis=1)
 data['gyro_max'] = np.max(gyro_data, axis=1)
 data['gyro_min'] = np.min(gyro_data, axis=1)
 
+data['lab'] = data['label']
+data = data.drop(columns='label')
+
 print(data.head())
-data.to_csv('datapreprocessed.csv')
+data.to_csv('datapreprocessed.csv', index=False)
