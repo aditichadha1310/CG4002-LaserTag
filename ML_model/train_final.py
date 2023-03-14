@@ -34,12 +34,15 @@ LABELS = ['nothing',
 
 
 # data = pd.read_csv("Supervised ML model\WISDM_ar_v1.1_raw.txt", sep=",", )
-data = pd.read_csv("ML_model\dataset_main.csv")
+data = pd.read_csv("data\datapreprocessed.csv")
 print(data.head())
 
 # Change pandas dataframe to np array
-X = data.iloc[:, 5:11].values
-y = data.iloc[:, 11:12].values
+# X = data.iloc[:, 5:11].values
+# y = data.iloc[:, 11:12].values
+
+X = data.iloc[:, 0:14].values
+y = data.iloc[:, 14:15].values
 
 print(X[:10])
 print(y[:10])
@@ -65,13 +68,15 @@ model = tf.keras.Sequential()
 # Define first hidden layer, 16-node dense layer
 # - input_shape = dimensions of input reshaped into a vector
 # model.add(tf.keras.layers.Dense(16, activation='relu', input_shape=(6,)))
-model.add(tf.keras.layers.Dense(16, input_dim=6, activation='relu'))
+# model.add(tf.keras.layers.Flatten(input_shape=(20, 14)))
+model.add(tf.keras.layers.Dense(16, input_dim=14, activation='relu'))
+# model.add(tf.keras.layers.Dense(16, activation='relu'))
 
 # Define second hidden layer, 8-node dense layer
 model.add(tf.keras.layers.Dense(8, activation='relu'))
 
 # Define output layer, 4 outputs
-model.add(tf.keras.layers.Dense(4, activation='softmax'))
+model.add(tf.keras.layers.Dense(5, activation='softmax'))
 
 # At this point, the model has been defined, but not yet trained
 # We must first complete the compilation step: define the optimiser and loss function
