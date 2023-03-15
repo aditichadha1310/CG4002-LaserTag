@@ -133,7 +133,7 @@ def generate_simulated_data():
     return [flex1, flex2, yaw, pitch, roll, accX, accY, accZ]
 
 # Define the window size and threshold factor
-window_size = 11
+window_size = 5
 threshold_factor = 2
 
 # Define N units for flagging movement, 20Hz -> 2s = 40 samples
