@@ -6,6 +6,7 @@ class StartOfMoveClass:
 
     def __init__(self):
         self.window = []
+        startOfMoveDetected = 0
         
     def input(self, data):
         self.window.append(data)
@@ -31,6 +32,7 @@ class StartOfMoveClass:
         mean_acc_change = diffX + diffY + diffZ
 
         if mean_acc_change > 10 or mean_acc_change < -10:
-            return window
-        else:
+            self.startOfMoveDetected = 1
             return 0
+        else:
+            return 7
