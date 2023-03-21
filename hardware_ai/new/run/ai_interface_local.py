@@ -1,65 +1,19 @@
-# Send data to start_of_move_checker, one row at a time
-# start_of_move_checker gathers data row by row to form window
-# Once window has 12 rows, check for possible start of move
-#   - if mean_acc_change passes a predetermined threshold, return 1
-#   - else, return 0
-
-# If 1 is returned,
-# Gather another 8 rows of data to form a window of 20 rows
-# Once formed, pass 20-row window into data processor
-#   - Feature engineering
-#   - 6 features to 100 features
-#   - Compress 20 rows into 1 row
-
-# Pass the 1 row of 100 columns into the overlay function
-
-import time
-import csv
-# from start_of_move_checker import StartOfMoveClass
-# import feature_engineering
-# import overlay
 import numpy as np
 import pandas as pd
 from statistics import mean
 from scipy import stats
 from scipy.signal import find_peaks
-import pynq
-from pynq import Overlay
-
-# checker = StartOfMoveClass()
-
-# with open('/Users/edly/Documents/GitHub/CG4002-LaserTag/hardware_ai/new/datasets/17032023_20Hz.csv') as csv_file:
-#     csv_reader = csv.reader(csv_file)
-
-#     # Skip the header row if present
-#     next(csv_reader)
-
-#     for row in csv_reader:
+import random
 
 class OL():
-    # Load overlay
-    def load_overlay(self):
-        # Initialise overlay
-        overlay = Overlay("amlp5bd_wrapper.bit")
-        # overlay.download()
-        if (overlay.is_loaded()):
-            print("Bitstream successfully loaded LESGO")
-        dma = overlay.axi_dma_0
-        return dma
-    
     # def confirm_Action(window, dma, self):
-    def confirm_Action(self,window,dma):
-        # window: 20 row * 7 col
-        # engineered_features: 1 row * 100 col
+    def confirm_Action(self,window):
         print(type(window))
         engineered_features = self.feature_engineering(window)
-        # return engineered_features
-        # self.feature_engineering(window)
-        action = self.feed_overlay(engineered_features, dma)
+        # action = self.feed_overlay(engineered_features, dma)
+        action = self.feed_overlay(engineered_features)
         return action
-
-        # Delay for 0.05 s --> 20 Hz sampling rate
-        # time.sleep(0.05)
+        # return engineered_features
 
     def feature_engineering(self,window):
         print("Engineering features...")
@@ -235,47 +189,9 @@ class OL():
         print()
         print(X_train.shape)
         print()
-        return X_train.values.tolist()
-
-    def feed_overlay(self,input, dma):
-        # Insert start of move identification here
-        # - Take in the first 5 datapoints
-        # - If the first 5 shows a possible valid action, proceed to take in 50 datapoints to determine which of the 4 possible actions
-
-        # Allocate input buffer of 6 floats
-        print("Feeding overlay...")
-        in_buffer = pynq.allocate(shape=(100,), dtype=np.float32)
-
-        # Allocate output buffer of 1 integer
-        out_buffer = pynq.allocate(shape=(1,), dtype=np.float32)
-
-        # 1st number of the input is the Player ID (i.e. 1 or 2)
-        # 2nd to 7th numbers (total 6 numbers) are to be fed into the neural network
-        for i, val in enumerate(input):
-            if(i == 0):
-                player_id = val
-            else:
-                in_buffer[i-1] = val
-
-        print(player_id)
-        print(in_buffer)
-
-        # DMA send and receive channel transfer
-        dma.sendchannel.transfer(in_buffer)
-        print("Data sent!")
-        dma.recvchannel.transfer(out_buffer)
-        print("Data received!")
-
-        # Wait for transfer to finish
-        dma.sendchannel.wait()
-        dma.recvchannel.wait()
-
-        # Print and return output buffer
-        # Should be a list of 2 elements:
-        #   1) Player ID
-        #   2) Identified action (by neural network)
-        output = int(out_buffer[0])
-        return output
-        # print("Player: " + str(player_id))
-        # print("Predicted Action: " + str(output))
-        # print("Expected Action: " + str(xoutput))
+        nparr = np.array(X_train.values.tolist())
+        return nparr.flatten()
+    
+    def feed_overlay(self,engineered_features):
+        rounded = list(map(int,engineered_features))
+        return random.choice(rounded)
