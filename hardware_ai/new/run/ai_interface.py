@@ -23,8 +23,8 @@ import pandas as pd
 from statistics import mean
 from scipy import stats
 from scipy.signal import find_peaks
-import pynq
-from pynq import Overlay
+# import pynq
+# from pynq import Overlay
 
 # checker = StartOfMoveClass()
 
@@ -38,27 +38,30 @@ from pynq import Overlay
 
 class OL():
     # Load overlay
-    def load_overlay():
+    def load_overlay(self):
         # Initialise overlay
-        overlay = Overlay("amlp5bd_wrapper.bit")
+        # overlay = Overlay("amlp5bd_wrapper.bit")
         # overlay.download()
         if (overlay.is_loaded()):
             print("Bitstream successfully loaded LESGO")
         dma = overlay.axi_dma_0
         return dma
     
-    def confirm_Action(window, dma, self):
+    # def confirm_Action(window, dma, self):
+    def confirm_Action(self,window):
         # window: 20 row * 7 col
         # engineered_features: 1 row * 100 col
         print(type(window))
         engineered_features = self.feature_engineering(window)
-        action = self.feed_overlay(engineered_features, dma)
-        return action
+        return engineered_features
+        # self.feature_engineering(window)
+        # action = self.feed_overlay(engineered_features, dma)
+        # return action
 
         # Delay for 0.05 s --> 20 Hz sampling rate
         # time.sleep(0.05)
 
-    def feature_engineering(window):
+    def feature_engineering(self,window):
         print("Engineering features...")
         WINDOW_SIZE = 20 # i.e. 1 sec of data to determine action
         STEP_SIZE = 10
@@ -68,14 +71,17 @@ class OL():
         gyro_x_list = []
         gyro_y_list = []
         gyro_z_list = []
+        window = window.reshape(20,6)
+        print(window)
 
         df = pd.DataFrame(window)
-        xs = df.iloc[:,[0]].values
-        ys = df.iloc[:,[1]].values
-        zs = df.iloc[:,[2]].values
-        xg = df.iloc[:,[3]].values
-        yg = df.iloc[:,[4]].values
-        zg = df.iloc[:,[5]].values
+        print(df)
+        xs = df[df.columns[0]].values
+        ys = df[df.columns[1]].values
+        zs = df[df.columns[2]].values
+        xg = df[df.columns[3]].values
+        yg = df[df.columns[4]].values
+        zg = df[df.columns[5]].values
 
         acc_x_list.append(xs)   
         acc_y_list.append(ys)
@@ -226,35 +232,38 @@ class OL():
         X_train['gyro_sma'] =    pd.Series(gyro_x_list).apply(lambda x: np.sum(abs(x)/100)) + pd.Series(gyro_y_list).apply(lambda x: np.sum(abs(x)/100)) \
                         + pd.Series(gyro_z_list).apply(lambda x: np.sum(abs(x)/100))
         print("Features engineered!")
+        print()
+        print(X_train.shape)
+        print()
         return X_train.values.tolist()
 
-    def feed_overlay(engineered_features, dma):
+    def feed_overlay(self,engineered_features, dma):
         # Insert start of move identification here
         # - Take in the first 5 datapoints
         # - If the first 5 shows a possible valid action, proceed to take in 50 datapoints to determine which of the 4 possible actions
 
         # Allocate input buffer of 6 floats
         print("Feeding overlay...")
-        in_buffer = pynq.allocate(shape=(100,), dtype=np.float32)
+        # in_buffer = pynq.allocate(shape=(100,), dtype=np.float32)
 
         # Allocate output buffer of 1 integer
-        out_buffer = pynq.allocate(shape=(1,), dtype=np.float32)
+        # out_buffer = pynq.allocate(shape=(1,), dtype=np.float32)
 
         # 1st number of the input is the Player ID (i.e. 1 or 2)
         # 2nd to 7th numbers (total 6 numbers) are to be fed into the neural network
         for i, val in enumerate(input):
             if(i == 0):
                 player_id = val
-            else:
-                in_buffer[i-1] = val
+            # else:
+                # in_buffer[i-1] = val
 
         # print(player_id)
         # print(in_buffer)
 
         # DMA send and receive channel transfer
-        dma.sendchannel.transfer(in_buffer)
+        # dma.sendchannel.transfer(in_buffer)
         print("Data sent!")
-        dma.recvchannel.transfer(out_buffer)
+        # dma.recvchannel.transfer(out_buffer)
         print("Data received!")
 
         # Wait for transfer to finish
@@ -265,8 +274,8 @@ class OL():
         # Should be a list of 2 elements:
         #   1) Player ID
         #   2) Identified action (by neural network)
-        output = int(out_buffer[0])
-        return output
+        # output = int(out_buffer[0])
+        # return output
         # print("Player: " + str(player_id))
         # print("Predicted Action: " + str(output))
         # print("Expected Action: " + str(xoutput))
