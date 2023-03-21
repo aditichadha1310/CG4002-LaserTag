@@ -1,4 +1,4 @@
-from ai_interface import OL
+from ai_interface_local import OL
 import numpy as np
 
 input = [[-6.67,1.77,1.27,-0.86,3.96,-0.1],
