@@ -235,7 +235,8 @@ class OL():
         print()
         print(X_train.shape)
         print()
-        return X_train.values.tolist()
+        nparr = np.array(X_train.values.tolist())
+        return nparr.flatten()
 
     def feed_overlay(self,input, dma):
         # Insert start of move identification here
@@ -252,12 +253,9 @@ class OL():
         # 1st number of the input is the Player ID (i.e. 1 or 2)
         # 2nd to 7th numbers (total 6 numbers) are to be fed into the neural network
         for i, val in enumerate(input):
-            if(i == 0):
-                player_id = val
-            else:
-                in_buffer[i-1] = val
+            in_buffer[i] = val
 
-        print(player_id)
+        # print(player_id)
         print(in_buffer)
 
         # DMA send and receive channel transfer
