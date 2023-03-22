@@ -13,11 +13,6 @@
 
 # Pass the 1 row of 100 columns into the overlay function
 
-import time
-import csv
-# from start_of_move_checker import StartOfMoveClass
-# import feature_engineering
-# import overlay
 import numpy as np
 import pandas as pd
 from statistics import mean
@@ -25,16 +20,6 @@ from scipy import stats
 from scipy.signal import find_peaks
 import pynq
 from pynq import Overlay
-
-# checker = StartOfMoveClass()
-
-# with open('/Users/edly/Documents/GitHub/CG4002-LaserTag/hardware_ai/new/datasets/17032023_20Hz.csv') as csv_file:
-#     csv_reader = csv.reader(csv_file)
-
-#     # Skip the header row if present
-#     next(csv_reader)
-
-#     for row in csv_reader:
 
 class OL():
     # Load overlay
@@ -47,20 +32,13 @@ class OL():
         dma = overlay.axi_dma_0
         return dma
     
-    # def confirm_Action(window, dma, self):
     def confirm_Action(self,window,dma):
         # window: 20 row * 7 col
         # engineered_features: 1 row * 100 col
-        # print(type(window))
         no_of_rows = int(len(window)/6)
         engineered_features = self.feature_engineering(window,no_of_rows)
-        # return engineered_features
-        # self.feature_engineering(window)
         action = self.feed_overlay(engineered_features, dma)
         return action
-
-        # Delay for 0.05 s --> 20 Hz sampling rate
-        # time.sleep(0.05)
 
     def feature_engineering(self,window,no_of_rows):
         print("Engineering features...")
@@ -240,10 +218,6 @@ class OL():
         return nparr.flatten()
 
     def feed_overlay(self,input, dma):
-        # Insert start of move identification here
-        # - Take in the first 5 datapoints
-        # - If the first 5 shows a possible valid action, proceed to take in 50 datapoints to determine which of the 4 possible actions
-
         # Allocate input buffer of 6 floats
         print("Feeding overlay...")
         in_buffer = pynq.allocate(shape=(100,), dtype=np.float32)
@@ -251,8 +225,6 @@ class OL():
         # Allocate output buffer of 1 integer
         out_buffer = pynq.allocate(shape=(1,), dtype=np.float32)
 
-        # 1st number of the input is the Player ID (i.e. 1 or 2)
-        # 2nd to 7th numbers (total 6 numbers) are to be fed into the neural network
         for i, val in enumerate(input):
             in_buffer[i] = val
 
@@ -269,10 +241,6 @@ class OL():
         dma.sendchannel.wait()
         dma.recvchannel.wait()
 
-        # Print and return output buffer
-        # Should be a list of 2 elements:
-        #   1) Player ID
-        #   2) Identified action (by neural network)
         output = int(out_buffer[0])
         return output
         # print("Player: " + str(player_id))
