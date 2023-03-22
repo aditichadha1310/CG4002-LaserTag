@@ -9,13 +9,17 @@ class OL():
     # def confirm_Action(window, dma, self):
     def confirm_Action(self,window):
         print(type(window))
-        engineered_features = self.feature_engineering(window)
+        print(len(window))
+        no_of_rows = int(len(window)/6)
+        print(no_of_rows)
+        print(type(no_of_rows))
+        engineered_features = self.feature_engineering(window, no_of_rows)
         # action = self.feed_overlay(engineered_features, dma)
         action = self.feed_overlay(engineered_features)
         return action
         # return engineered_features
 
-    def feature_engineering(self,window):
+    def feature_engineering(self,window, no_of_rows):
         print("Engineering features...")
         WINDOW_SIZE = 20 # i.e. 1 sec of data to determine action
         STEP_SIZE = 10
@@ -25,7 +29,7 @@ class OL():
         gyro_x_list = []
         gyro_y_list = []
         gyro_z_list = []
-        window = window.reshape(20,6)
+        window = window.reshape(no_of_rows,6)
         print(window)
 
         df = pd.DataFrame(window)
