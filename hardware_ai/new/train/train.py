@@ -33,30 +33,42 @@ LABELS = ['idle',
           'end']
 
 # data = pd.read_csv("Supervised ML model\WISDM_ar_v1.1_raw.txt", sep=",", )
-data = pd.read_csv("dataset2.csv")
-print(data.head())
+train_data = pd.read_csv(
+    'C:/Users/edly1/Documents/GitHub/CG4002-LaserTag/hardware_ai/new/train/20230325_train.csv')
+test_data = pd.read_csv(
+    'C:/Users/edly1/Documents/GitHub/CG4002-LaserTag/hardware_ai/new/train/20230325_test.csv')
+print(train_data.head())
+print()
+print(test_data.head())
 
 # Change pandas dataframe to np array
-X = data.iloc[:, 5:11].values
-y = data.iloc[:, 11:12].values
+X_train = train_data.iloc[:, :100].values
+y_train = train_data.iloc[:, 100:101].values
+X_test = test_data.iloc[:, :100].values
+y_test = test_data.iloc[:, 100:101].values
 
-print(X[:10])
-print(y[:10])
+print(X_train)
+print(y_train)
+print(X_test)
+print(y_test)
 
 # Normalisation of data
 sc = StandardScaler()
-X = sc.fit_transform(X)
+X_train = sc.fit_transform(X_train)
+X_test = sc.fit_transform(X_test)
 
-print(X[:10])
+print(X_train)
 
 # One hot encode labels
 ohe = OneHotEncoder()
-y = ohe.fit_transform(y).toarray()
+y_train = ohe.fit_transform(y_train).toarray()
+y_test = ohe.fit_transform(y_test).toarray()
 
-print(y[:10])
+# print(y_train)
 
 # Split data into training and testing data
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.1)
+# X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.1)
+
 
 # Define a sequential model
 model = tf.keras.Sequential()
@@ -64,13 +76,13 @@ model = tf.keras.Sequential()
 # Define first hidden layer, 16-node dense layer
 # - input_shape = dimensions of input reshaped into a vector
 # model.add(tf.keras.layers.Dense(16, activation='relu', input_shape=(6,)))
-model.add(tf.keras.layers.Dense(16, input_dim=6, activation='relu'))
+model.add(tf.keras.layers.Dense(16, input_dim=100, activation='relu'))
 
 # Define second hidden layer, 8-node dense layer
 model.add(tf.keras.layers.Dense(8, activation='relu'))
 
 # Define output layer, 4 outputs
-model.add(tf.keras.layers.Dense(4, activation='softmax'))
+model.add(tf.keras.layers.Dense(5, activation='softmax'))
 
 # At this point, the model has been defined, but not yet trained
 # We must first complete the compilation step: define the optimiser and loss function
@@ -89,8 +101,11 @@ model.compile(loss='categorical_crossentropy',
 #       - epochs (number of times the whole set of batches is trained), using multiple epochs allows the model to revisit the same batches but with different weights and biases,
 #         and possibly optimiser parameters, since they are updated after each batch
 #       - validation_split (splits the data into a training and validation set)
-history = model.fit(X_train, y_train, epochs=100,
+history = model.fit(X_train, y_train, epochs=75,
                     batch_size=64, validation_data=(X_test, y_test))
+
+# history = model.fit(X_train, y_train, epochs=75,
+#                     batch_size=64)
 
 # Evaluate the test set
 score = model.evaluate(X_test, y_test, verbose=0)
