@@ -26,11 +26,11 @@ import pandas as pd
 import numpy as np
 
 # Define constants
-LABELS = ['right_walk',
-          'right_run',
-          'left_walk',
-          'left_run']
-
+LABELS = ['idle',
+          'grenade',
+          'reload',
+          'shield',
+          'end']
 
 # data = pd.read_csv("Supervised ML model\WISDM_ar_v1.1_raw.txt", sep=",", )
 data = pd.read_csv("dataset2.csv")
