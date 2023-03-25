@@ -3,8 +3,8 @@ import numpy as np
 from scipy import stats
 from scipy.signal import find_peaks
 
-WINDOW_SIZE = 20 # i.e. 1 sec of data to determine action
-STEP_SIZE = 10
+WINDOW_SIZE = 40 # i.e. 1 sec of data to determine action
+STEP_SIZE = 40
 window = []
 acc_x_list = []
 acc_y_list = []
@@ -18,18 +18,18 @@ def window_feature_engineering(window):
 
     return 1 + 1
 
-df = pd.read_csv('/Users/edly/Documents/GitHub/CG4002-LaserTag/hardware_ai/new/datasets/19032023_20Hz_clean.csv')
-# print(df.head())
+df = pd.read_csv('/Users/edly/Documents/GitHub/CG4002-LaserTag/hardware_ai/new/datasets/20230324_20Hz.csv')
+print(df.head())
 
 # creating overlaping windows of size window-size 100
-for i in range(0, df.shape[0] - WINDOW_SIZE, STEP_SIZE):
+for i in range(0, df.shape[0], STEP_SIZE):
     xs = df['acc_x'].values[i: i + WINDOW_SIZE]
     ys = df['acc_y'].values[i: i + WINDOW_SIZE]
     zs = df['acc_z'].values[i: i + WINDOW_SIZE]
     xg = df['gyro_x'].values[i: i + WINDOW_SIZE]
     yg = df['gyro_y'].values[i: i + WINDOW_SIZE]
     zg = df['gyro_z'].values[i: i + WINDOW_SIZE]
-    label = stats.mode(df['action'][i: i + WINDOW_SIZE])[0][0]
+    label = stats.mode(df['label'][i: i + WINDOW_SIZE])[0][0]
 
     acc_x_list.append(xs)   
     acc_y_list.append(ys)
@@ -187,7 +187,7 @@ print(X_train.head(60))
 print(X_train['labels'].value_counts())
 print(X_train.shape)
 # print(y_train.shape)
-# X_train.to_csv('/Users/edly/Documents/GitHub/CG4002-LaserTag/hardware_ai/new/datasets/19032023_train.csv', index=False)
+X_train.to_csv('/Users/edly/Documents/GitHub/CG4002-LaserTag/hardware_ai/new/datasets/20230325_train.csv', index=False)
 
 # with open('/Users/edly/Documents/GitHub/CG4002-LaserTag/hardware_ai/new/datasets/19032023_20Hz_clean.csv') as csv_file:
 #     csv_reader = csv.reader(csv_file)
