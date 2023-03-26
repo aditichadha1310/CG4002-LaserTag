@@ -47,15 +47,15 @@ y_train = train_data.iloc[:, 100:101].values
 X_test = test_data.iloc[:, :100].values
 y_test = test_data.iloc[:, 100:101].values
 
-print(X_train)
-print(y_train)
-print(X_test)
-print(y_test)
+print(X_train[:5])
+print(y_train[:5])
+print(X_test[:5])
+print(y_test[:5])
 
 # Normalisation of data
-sc = StandardScaler()
-X_train = sc.fit_transform(X_train)
-X_test = sc.fit_transform(X_test)
+# sc = StandardScaler()
+# X_train = sc.fit_transform(X_train)
+# X_test = sc.fit_transform(X_test)
 
 print(X_train)
 
@@ -76,11 +76,11 @@ model = tf.keras.Sequential()
 # Define first hidden layer, 16-node dense layer
 # - input_shape = dimensions of input reshaped into a vector
 # model.add(tf.keras.layers.Dense(16, activation='relu', input_shape=(6,)))
-model.add(tf.keras.layers.Dense(16, input_dim=100, activation='elu'))
+model.add(tf.keras.layers.Dense(32, input_dim=100, activation='relu'))
 # model.add(tf.keras.layers.LeakyReLU(16, input_dim=100))
 
 # Define second hidden layer, 8-node dense layer
-model.add(tf.keras.layers.Dense(8, activation='elu'))
+model.add(tf.keras.layers.Dense(32, activation='relu'))
 
 # Define output layer, 4 outputs
 model.add(tf.keras.layers.Dense(5, activation='softmax'))

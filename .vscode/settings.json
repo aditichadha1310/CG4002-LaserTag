@@ -39,6 +39,19 @@
     "xstddef": "cpp",
     "xstring": "cpp",
     "xtr1common": "cpp",
-    "xutility": "cpp"
+    "xutility": "cpp",
+    "cctype": "cpp",
+    "chrono": "cpp",
+    "ctime": "cpp",
+    "fstream": "cpp",
+    "list": "cpp",
+    "mutex": "cpp",
+    "random": "cpp",
+    "ratio": "cpp",
+    "string": "cpp",
+    "thread": "cpp",
+    "unordered_map": "cpp",
+    "unordered_set": "cpp",
+    "xhash": "cpp"
   }
 }
