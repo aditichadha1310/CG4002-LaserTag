@@ -254,17 +254,19 @@ int main()
             sum += result2[j] * w3[j][i];
         }
         result3[i] = sum + b3[i];
+        std::cout << result3[i] << ", ";
+    }
+    std::cout << std::endl;
 
-        // Apply softmax activation function
-        sum = 0.0;
-        for (int i = 0; i < OUTPUT_SIZE; i++)
-        {
-            sum += exp(result3[i]);
-        }
-        for (int i = 0; i < OUTPUT_SIZE; i++)
-        {
-            result3[i] = exp(result3[i]) / sum;
-        }
+    // Apply softmax activation function
+    sum = 0.0;
+    for (int i = 0; i < OUTPUT_SIZE; i++)
+    {
+        sum += exp(result3[i]);
+    }
+    for (int i = 0; i < OUTPUT_SIZE; i++)
+    {
+        result3[i] = exp(result3[i]) / sum;
         std::cout << result3[i] << ", ";
     }
     std::cout << std::endl;
