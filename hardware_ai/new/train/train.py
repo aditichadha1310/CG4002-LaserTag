@@ -76,10 +76,11 @@ model = tf.keras.Sequential()
 # Define first hidden layer, 16-node dense layer
 # - input_shape = dimensions of input reshaped into a vector
 # model.add(tf.keras.layers.Dense(16, activation='relu', input_shape=(6,)))
-model.add(tf.keras.layers.Dense(16, input_dim=100, activation='relu'))
+model.add(tf.keras.layers.Dense(16, input_dim=100, activation='elu'))
+# model.add(tf.keras.layers.LeakyReLU(16, input_dim=100))
 
 # Define second hidden layer, 8-node dense layer
-model.add(tf.keras.layers.Dense(8, activation='relu'))
+model.add(tf.keras.layers.Dense(8, activation='elu'))
 
 # Define output layer, 4 outputs
 model.add(tf.keras.layers.Dense(5, activation='softmax'))
