@@ -8,12 +8,13 @@ import random
 class OL():
     # def confirm_Action(window, dma, self):
     def confirm_Action(self,window):
-        print(type(window))
-        print(len(window))
+        # print(type(window))
+        # print(len(window))
         no_of_rows = int(len(window)/6)
         print(no_of_rows)
         print(type(no_of_rows))
         engineered_features = self.feature_engineering(window, no_of_rows)
+        print(engineered_features)
         # action = self.feed_overlay(engineered_features, dma)
         action = self.feed_overlay(engineered_features)
         return action

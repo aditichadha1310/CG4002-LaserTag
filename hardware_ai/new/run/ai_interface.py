@@ -25,7 +25,7 @@ class OL():
     # Load overlay
     def load_overlay(self):
         # Initialise overlay
-        overlay = Overlay("amlp5bd_wrapper.bit")
+        overlay = Overlay("amlp6bd_wrapper.bit")
         # overlay.download()
         if (overlay.is_loaded()):
             print("Bitstream successfully loaded LESGO")
@@ -51,10 +51,10 @@ class OL():
         gyro_y_list = []
         gyro_z_list = []
         window = window.reshape(no_of_rows,6)
-        print(window)
+        # print(window)
 
         df = pd.DataFrame(window)
-        print(df)
+        # print(df)
         xs = df[df.columns[0]].values
         ys = df[df.columns[1]].values
         zs = df[df.columns[2]].values
@@ -210,10 +210,10 @@ class OL():
                         + pd.Series(acc_z_list).apply(lambda x: np.sum(abs(x)/100))
         X_train['gyro_sma'] =    pd.Series(gyro_x_list).apply(lambda x: np.sum(abs(x)/100)) + pd.Series(gyro_y_list).apply(lambda x: np.sum(abs(x)/100)) \
                         + pd.Series(gyro_z_list).apply(lambda x: np.sum(abs(x)/100))
-        print("Features engineered!")
-        print()
-        print(X_train.shape)
-        print()
+        # print("Features engineered!")
+        # print()
+        # print(X_train.shape)
+        # print()
         nparr = np.array(X_train.values.tolist())
         return nparr.flatten()
 
