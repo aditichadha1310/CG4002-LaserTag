@@ -34,21 +34,29 @@ LABELS = ['idle',
 
 # data = pd.read_csv("Supervised ML model\WISDM_ar_v1.1_raw.txt", sep=",", )
 train_data = pd.read_csv(
-    'C:/Users/edly1/Documents/GitHub/CG4002-LaserTag/hardware_ai/new/train/20230325_train.csv')
+    'C:/Users/edly1/Documents/GitHub/CG4002-LaserTag/hardware_ai/new/datasets/20230331_20Hz_train_processed.csv')
+validation_data = pd.read_csv(
+    'C:/Users/edly1/Documents/GitHub/CG4002-LaserTag/hardware_ai/new/datasets/20230331_20Hz_validation_processed.csv')
 test_data = pd.read_csv(
-    'C:/Users/edly1/Documents/GitHub/CG4002-LaserTag/hardware_ai/new/train/20230325_test.csv')
+    'C:/Users/edly1/Documents/GitHub/CG4002-LaserTag/hardware_ai/new/datasets/20230331_20Hz_test_processed.csv')
 print(train_data.head())
+print()
+print(validation_data.head())
 print()
 print(test_data.head())
 
 # Change pandas dataframe to np array
 X_train = train_data.iloc[:, :100].values
 y_train = train_data.iloc[:, 100:101].values
+X_validation = validation_data.iloc[:, :100].values
+y_validation = validation_data.iloc[:, 100:101].values
 X_test = test_data.iloc[:, :100].values
 y_test = test_data.iloc[:, 100:101].values
 
 print(X_train[:5])
 print(y_train[:5])
+print(X_validation[:5])
+print(y_validation[:5])
 print(X_test[:5])
 print(y_test[:5])
 
@@ -62,6 +70,7 @@ print(X_train)
 # One hot encode labels
 ohe = OneHotEncoder()
 y_train = ohe.fit_transform(y_train).toarray()
+y_validation = ohe.fit_transform(y_validation).toarray()
 y_test = ohe.fit_transform(y_test).toarray()
 
 # print(y_train)
@@ -83,7 +92,7 @@ model.add(tf.keras.layers.Dense(32, input_dim=100, activation='relu'))
 model.add(tf.keras.layers.Dense(32, activation='relu'))
 
 # Define output layer, 4 outputs
-model.add(tf.keras.layers.Dense(5, activation='softmax'))
+model.add(tf.keras.layers.Dense(4, activation='softmax'))
 
 # At this point, the model has been defined, but not yet trained
 # We must first complete the compilation step: define the optimiser and loss function
@@ -103,7 +112,7 @@ model.compile(loss='categorical_crossentropy',
 #         and possibly optimiser parameters, since they are updated after each batch
 #       - validation_split (splits the data into a training and validation set)
 history = model.fit(X_train, y_train, epochs=75,
-                    batch_size=64, validation_data=(X_test, y_test))
+                    validation_data=(X_validation, y_validation))
 
 # history = model.fit(X_train, y_train, epochs=75,
 #                     batch_size=64)
@@ -161,5 +170,5 @@ np.savetxt('Output_Weights3.txt', weights3, delimiter=', ')
 np.savetxt('Output_Biases3.txt', biases3, delimiter=', ')
 # print(weights)
 
-if os.path.isfile('Supervised ML model\weights.h5') is False:
-    model.save_weights('Supervised ML model\weights.h5')
+# if os.path.isfile('Supervised ML model\weights.h5') is False:
+#     model.save_weights('Supervised ML model\weights.h5')
