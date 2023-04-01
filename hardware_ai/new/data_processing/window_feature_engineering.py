@@ -21,7 +21,7 @@ def window_feature_engineering(window):
 
 
 df = pd.read_csv(
-    '/Users/edly/Documents/GitHub/CG4002-LaserTag/hardware_ai/new/datasets/grenade_sample_1.csv')
+    '/Users/edly/Documents/GitHub/CG4002-LaserTag/hardware_ai/new/datasets/IMU_DATA_6.csv')
 print(df.head())
 
 # creating overlaping windows of size window-size 100
