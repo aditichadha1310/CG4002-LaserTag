@@ -26,37 +26,36 @@ import pandas as pd
 import numpy as np
 
 # Define constants
-LABELS = ['idle',
-          'grenade',
+LABELS = ['grenade',
           'reload',
           'shield',
           'end']
 
 # data = pd.read_csv("Supervised ML model\WISDM_ar_v1.1_raw.txt", sep=",", )
 train_data = pd.read_csv(
-    'C:/Users/edly1/Documents/GitHub/CG4002-LaserTag/hardware_ai/new/datasets/20230331_20Hz_train_processed.csv')
-validation_data = pd.read_csv(
-    'C:/Users/edly1/Documents/GitHub/CG4002-LaserTag/hardware_ai/new/datasets/20230331_20Hz_validation_processed.csv')
+    'C:/Users/edly1/Documents/GitHub/CG4002-LaserTag/hardware_ai/new/datasets/20230401_train.csv')
+# validation_data = pd.read_csv(
+#     'C:/Users/edly1/Documents/GitHub/CG4002-LaserTag/hardware_ai/new/datasets/20230331_20Hz_validation_processed.csv')
 test_data = pd.read_csv(
-    'C:/Users/edly1/Documents/GitHub/CG4002-LaserTag/hardware_ai/new/datasets/20230331_20Hz_test_processed.csv')
+    'C:/Users/edly1/Documents/GitHub/CG4002-LaserTag/hardware_ai/new/datasets/20230401_test.csv')
 print(train_data.head())
-print()
-print(validation_data.head())
+# print()
+# print(validation_data.head())
 print()
 print(test_data.head())
 
 # Change pandas dataframe to np array
 X_train = train_data.iloc[:, :100].values
 y_train = train_data.iloc[:, 100:101].values
-X_validation = validation_data.iloc[:, :100].values
-y_validation = validation_data.iloc[:, 100:101].values
+# X_validation = validation_data.iloc[:, :100].values
+# y_validation = validation_data.iloc[:, 100:101].values
 X_test = test_data.iloc[:, :100].values
 y_test = test_data.iloc[:, 100:101].values
 
 print(X_train[:5])
 print(y_train[:5])
-print(X_validation[:5])
-print(y_validation[:5])
+# print(X_validation[:5])
+# print(y_validation[:5])
 print(X_test[:5])
 print(y_test[:5])
 
@@ -70,7 +69,7 @@ print(X_train)
 # One hot encode labels
 ohe = OneHotEncoder()
 y_train = ohe.fit_transform(y_train).toarray()
-y_validation = ohe.fit_transform(y_validation).toarray()
+# y_validation = ohe.fit_transform(y_validation).toarray()
 y_test = ohe.fit_transform(y_test).toarray()
 
 # print(y_train)
@@ -111,8 +110,11 @@ model.compile(loss='categorical_crossentropy',
 #       - epochs (number of times the whole set of batches is trained), using multiple epochs allows the model to revisit the same batches but with different weights and biases,
 #         and possibly optimiser parameters, since they are updated after each batch
 #       - validation_split (splits the data into a training and validation set)
-history = model.fit(X_train, y_train, epochs=75,
-                    validation_data=(X_validation, y_validation))
+# history = model.fit(X_train, y_train, epochs=75,
+#                     validation_data=(X_validation, y_validation))
+
+history = model.fit(X_train, y_train, epochs=50,
+                    validation_data=(X_test, y_test))
 
 # history = model.fit(X_train, y_train, epochs=75,
 #                     batch_size=64)
