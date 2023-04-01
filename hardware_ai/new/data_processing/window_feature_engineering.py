@@ -21,7 +21,7 @@ def window_feature_engineering(window):
 
 
 df = pd.read_csv(
-    '/Users/edly/Documents/GitHub/CG4002-LaserTag/hardware_ai/new/datasets/IMU_DATA_6.csv')
+    '/Users/edly/Documents/GitHub/CG4002-LaserTag/hardware_ai/new/datasets/20230401_agg_val_raw.csv')
 print(df.head())
 
 # creating overlaping windows of size window-size 100
@@ -253,7 +253,7 @@ print(X_train['labels'].value_counts())
 print(X_train.shape)
 # print(y_train.shape)
 X_train.to_csv(
-    '/Users/edly/Documents/GitHub/CG4002-LaserTag/hardware_ai/new/datasets/grenade_sample_processed_1.csv', index=False)
+    '/Users/edly/Documents/GitHub/CG4002-LaserTag/hardware_ai/new/datasets/20230401_agg_val_processed.csv', index=False)
 
 # with open('/Users/edly/Documents/GitHub/CG4002-LaserTag/hardware_ai/new/datasets/19032023_20Hz_clean.csv') as csv_file:
 #     csv_reader = csv.reader(csv_file)
