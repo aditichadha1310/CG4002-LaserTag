@@ -1,4 +1,4 @@
-with open("C:/Users/edly1/Documents/GitHub/CG4002-LaserTag/Output_Weights3.txt", "r") as text:
+with open("C:/Users/edly1/Documents/GitHub/CG4002-LaserTag/Output_Biases3.txt", "r") as text:
     text_data = text.readlines()
     print(type(text_data))
     for index, word in enumerate(text_data):
