@@ -14,12 +14,6 @@ gyro_y_list = []
 gyro_z_list = []
 train_labels = []
 
-
-def window_feature_engineering(window):
-
-    return 1 + 1
-
-
 df = pd.read_csv(
     '/Users/edly/Documents/GitHub/CG4002-LaserTag/hardware_ai/new/datasets/20230403_raw_val.csv')
 print(df.head())
