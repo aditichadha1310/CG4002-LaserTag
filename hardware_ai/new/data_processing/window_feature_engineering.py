@@ -15,7 +15,7 @@ gyro_z_list = []
 train_labels = []
 
 df = pd.read_csv(
-    '/Users/edly/Documents/GitHub/CG4002-LaserTag/hardware_ai/new/datasets/20230403_raw_val.csv')
+    '/Users/edly/Documents/GitHub/CG4002-LaserTag/hardware_ai/new/datasets/20230403_raw_train.csv')
 print(df.head())
 
 # creating overlaping windows of size window-size 100
@@ -247,7 +247,7 @@ print(X_train['labels'].value_counts())
 print(X_train.shape)
 # print(y_train.shape)
 X_train.to_csv(
-    '/Users/edly/Documents/GitHub/CG4002-LaserTag/hardware_ai/new/datasets/20230403_processed_val.csv', index=False)
+    '/Users/edly/Documents/GitHub/CG4002-LaserTag/hardware_ai/new/datasets/20230403_processed_train.csv', index=False)
 
 # with open('/Users/edly/Documents/GitHub/CG4002-LaserTag/hardware_ai/new/datasets/19032023_20Hz_clean.csv') as csv_file:
 #     csv_reader = csv.reader(csv_file)
