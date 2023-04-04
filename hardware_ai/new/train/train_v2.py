@@ -72,8 +72,6 @@ plt.show()
 print(model.summary())
 
 # Save weights to txt file
-
-
 def numpy_to_cpp_array(np_array, destination_file):
     cpp_array = ""
     if np_array.ndim == 2:
