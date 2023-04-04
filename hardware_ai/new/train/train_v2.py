@@ -44,7 +44,7 @@ model.compile(loss='categorical_crossentropy',
 
 # Train the model
 history = model.fit(X_train, y_train_encoded, validation_data=(
-    X_val, y_val_encoded), epochs=90, batch_size=32)
+    X_val, y_val_encoded), epochs=100, batch_size=64)
 
 # Evaluate the model on the test set
 loss, accuracy = model.evaluate(X_test, y_test_encoded)
@@ -72,6 +72,8 @@ plt.show()
 print(model.summary())
 
 # Save weights to txt file
+
+
 def numpy_to_cpp_array(np_array, destination_file):
     cpp_array = ""
     if np_array.ndim == 2:
