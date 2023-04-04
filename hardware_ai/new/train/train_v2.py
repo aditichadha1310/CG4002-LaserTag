@@ -7,11 +7,11 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 train_data = pd.read_csv(
-    'C:/Users/edly1/Documents/GitHub/CG4002-LaserTag/hardware_ai/new/datasets/20230401_agg_train_processed.csv')
+    'C:/Users/edly1/Documents/GitHub/CG4002-LaserTag/hardware_ai/new/datasets/20230403_processed_train.csv')
 val_data = pd.read_csv(
-    'C:/Users/edly1/Documents/GitHub/CG4002-LaserTag/hardware_ai/new/datasets/20230401_agg_val_processed.csv')
+    'C:/Users/edly1/Documents/GitHub/CG4002-LaserTag/hardware_ai/new/datasets/20230403_processed_val.csv')
 test_data = pd.read_csv(
-    'C:/Users/edly1/Documents/GitHub/CG4002-LaserTag/hardware_ai/new/datasets/20230401_agg_test_processed.csv')
+    'C:/Users/edly1/Documents/GitHub/CG4002-LaserTag/hardware_ai/new/datasets/20230403_processed_test.csv')
 
 # Change pandas dataframe to np array
 X_train = train_data.iloc[:, :100].values
@@ -44,7 +44,7 @@ model.compile(loss='categorical_crossentropy',
 
 # Train the model
 history = model.fit(X_train, y_train_encoded, validation_data=(
-    X_val, y_val_encoded), epochs=90, batch_size=32)
+    X_val, y_val_encoded), epochs=100, batch_size=64)
 
 # Evaluate the model on the test set
 loss, accuracy = model.evaluate(X_test, y_test_encoded)
@@ -72,6 +72,8 @@ plt.show()
 print(model.summary())
 
 # Save weights to txt file
+
+
 def numpy_to_cpp_array(np_array, destination_file):
     cpp_array = ""
     if np_array.ndim == 2:
