@@ -7,11 +7,11 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 train_data = pd.read_csv(
-    'C:/Users/edly1/Documents/GitHub/CG4002-LaserTag/hardware_ai/new/datasets/20230411_processed_train.csv')
+    'C:/Users/edly1/Documents/GitHub/CG4002-LaserTag/hardware_ai/new/datasets/20230412_30_processed_train.csv')
 val_data = pd.read_csv(
-    'C:/Users/edly1/Documents/GitHub/CG4002-LaserTag/hardware_ai/new/datasets/20230411_processed_val.csv')
+    'C:/Users/edly1/Documents/GitHub/CG4002-LaserTag/hardware_ai/new/datasets/20230412_30_processed_val.csv')
 test_data = pd.read_csv(
-    'C:/Users/edly1/Documents/GitHub/CG4002-LaserTag/hardware_ai/new/datasets/20230411_processed_test.csv')
+    'C:/Users/edly1/Documents/GitHub/CG4002-LaserTag/hardware_ai/new/datasets/20230412_30_processed_test.csv')
 
 # Change pandas dataframe to np array
 X_train = train_data.iloc[:, :100].values
