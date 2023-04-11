@@ -3,8 +3,8 @@ import numpy as np
 from scipy import stats
 from scipy.signal import find_peaks
 
-WINDOW_SIZE = 30  # i.e. 1 sec of data to determine action
-STEP_SIZE = 30
+WINDOW_SIZE = 40  # i.e. 1 sec of data to determine action
+STEP_SIZE = 40
 window = []
 acc_x_list = []
 acc_y_list = []
@@ -15,7 +15,7 @@ gyro_z_list = []
 train_labels = []
 
 df = pd.read_csv(
-    '/Users/edly/Documents/GitHub/CG4002-LaserTag/hardware_ai/new/datasets/20230411_raw_train.csv')
+    '/Users/edly/Documents/GitHub/CG4002-LaserTag/hardware_ai/new/datasets/20230412_40_raw_train.csv')
 print(df.head())
 
 # creating overlaping windows of size window-size 100
@@ -247,7 +247,7 @@ print(X_train['labels'].value_counts())
 print(X_train.shape)
 # print(y_train.shape)
 X_train.to_csv(
-    '/Users/edly/Documents/GitHub/CG4002-LaserTag/hardware_ai/new/datasets/20230411_processed_train.csv', index=False)
+    '/Users/edly/Documents/GitHub/CG4002-LaserTag/hardware_ai/new/datasets/20230412_40_processed_train.csv', index=False)
 
 # with open('/Users/edly/Documents/GitHub/CG4002-LaserTag/hardware_ai/new/datasets/19032023_20Hz_clean.csv') as csv_file:
 #     csv_reader = csv.reader(csv_file)
